@@ -4,6 +4,8 @@ import (
 	common "GaswapData/Common"
 	"context"
 	ethereumCommon "github.com/ethereum/go-ethereum/common"
+	"github.com/ethereum/go-ethereum/core/types"
+	"github.com/ethereum/go-ethereum/eth/protocols/eth"
 	"log"
 )
 
@@ -58,18 +60,18 @@ func GetTxPoolContent() {
 	client := common.RPCClient()
 	//defer client.Close()
 
-	type resultx struct {
-		pending []string `json:"pending"`
-		queued  []string `json:"queued"`
+	type Resultx struct {
+		Pending map[string]map[int]*eth.TxPool        `json:"pending"`
+		Queued  map[string]map[int]types.DynamicFeeTx `json:"queued"`
 	}
 
 	type test struct {
 		jsonrpc string
 		id      int
-		result  resultx
+		result  Resultx
 	}
 	//var result string
-	var result2 resultx
+	var result2 Resultx
 
 	//type request struct {
 	//	id int,
@@ -80,10 +82,9 @@ func GetTxPoolContent() {
 		log.Fatal(err)
 	}
 
-	for i := 0; i < len(result2.pending); i += 1 {
-		tran := result2.pending[i]
+	for i := 0; i < len(result2.Pending); i += 1 {
 
-		println(tran)
+		println("x")
 	}
 
 	//return &result
