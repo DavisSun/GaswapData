@@ -1,11 +1,10 @@
-package Crawlers
+package crawlers
 
 import (
-	common "GaswapData/Common"
+	common "GaswapData/common"
+	"GaswapData/internal"
 	"context"
 	ethereumCommon "github.com/ethereum/go-ethereum/common"
-	"github.com/ethereum/go-ethereum/core/types"
-	"github.com/ethereum/go-ethereum/eth/protocols/eth"
 	"log"
 )
 
@@ -55,39 +54,16 @@ func WatchTxPool() {
 	}
 }
 
-func GetTxPoolContent() {
+func GetTxPoolContent() *internal.TxpoolContentResponse {
 	println("Start")
 	client := common.RPCClient()
-	//defer client.Close()
-
-	type Resultx struct {
-		Pending map[string]map[int]*eth.TxPool        `json:"pending"`
-		Queued  map[string]map[int]types.DynamicFeeTx `json:"queued"`
-	}
-
-	type test struct {
-		jsonrpc string
-		id      int
-		result  Resultx
-	}
-	//var result string
-	var result2 Resultx
-
-	//type request struct {
-	//	id int,
-	//	jsonrpc string,
-	//}
-	if err := client.Call(&result2, "txpool_content"); err != nil {
-		println("Failed")
+	defer client.Close()
+	var result internal.TxpoolContentResponse
+	if err := client.Call(&result, "txpool_content"); err != nil {
+		println("[GetTxPoolContent] Failed")
 		log.Fatal(err)
 	}
-
-	for i := 0; i < len(result2.Pending); i += 1 {
-
-		println("x")
-	}
-
-	//return &result
+	return &result
 }
 
 //func GetTxPoolTest() {

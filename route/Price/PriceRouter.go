@@ -1,7 +1,7 @@
 package Price
 
 import (
-	controllers "GaswapData/Controllers"
+	controllers "GaswapData/controllers"
 	"github.com/gin-gonic/gin"
 )
 

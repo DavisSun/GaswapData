@@ -1,7 +1,7 @@
 package Router
 
 import (
-	priceRouter "GaswapData/Route/Price"
+	priceRouter "GaswapData/route/Price"
 	"github.com/gin-gonic/gin"
 )
 

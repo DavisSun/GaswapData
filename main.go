@@ -1,10 +1,10 @@
 package main
 
-import crawlers "GaswapData/Crawlers"
+import crawlers "GaswapData/crawlers"
 
 func main() {
 	crawlers.GetTxPoolContent()
-	//println(Crawlers.GetLatestBlockNumber())
+	//println(crawlers.GetLatestBlockNumber())
 	//crawlers.WatchTxPool()
 
 	//r := gin.Default()
