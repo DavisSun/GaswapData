@@ -1,6 +1,7 @@
 package runner
 
 import (
+	"GaswapData/internal"
 	"github.com/go-co-op/gocron"
 	"log"
 	"time"
@@ -15,4 +16,12 @@ func Start() {
 		panic(err)
 	}
 	scheduler.StartAsync()
+}
+
+func Predict(blockNumber uint64) {
+
+}
+
+func convertTxPoolContentToTranscations(response *internal.TxpoolContentResponse) {
+
 }
