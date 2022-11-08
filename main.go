@@ -1,6 +1,6 @@
 package main
 
-import crawlers "GaswapData/crawlers"
+import "GaswapData/crawlers"
 
 func main() {
 	crawlers.GetTxPoolContent()

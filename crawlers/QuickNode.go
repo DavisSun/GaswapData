@@ -65,18 +65,3 @@ func GetTxPoolContent() *internal.TxpoolContentResponse {
 	}
 	return &result
 }
-
-//func GetTxPoolTest() {
-//	type message struct {
-//		Version string          `json:"jsonrpc,omitempty"`
-//		ID      int             `json:"id,omitempty"`
-//		Method  string          `json:"method,omitempty"`
-//		Params  json.RawMessage `json:"params,omitempty"`
-//		Result  json.RawMessage `json:"result,omitempty"`
-//	}
-//
-//	client := httpNative.Client{
-//		Timeout: 5 * time.Minute,
-//	}
-//
-//}

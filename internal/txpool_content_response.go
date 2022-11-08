@@ -1,6 +1,6 @@
 package internal
 
 type TxpoolContentResponse struct {
-	Pending map[string]map[int]*RPCTransaction `json:"pending"`
-	Queued  map[string]map[int]*RPCTransaction `json:"queued"`
+	Pending map[string]map[uint64]*RPCTransaction `json:"pending"`
+	Queued  map[string]map[uint64]*RPCTransaction `json:"queued"`
 }

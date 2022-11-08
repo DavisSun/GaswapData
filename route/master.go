@@ -1,11 +1,11 @@
 package Router
 
 import (
-	priceRouter "GaswapData/route/Price"
+	priceRouter "GaswapData/route/price"
 	"github.com/gin-gonic/gin"
 )
 
 func Setup(rt *gin.Engine) {
-	// Price Router
+	// price Router
 	priceRouter.GetPriceRouter(rt)
 }
