@@ -14,13 +14,14 @@ func (trans Transactions) Len() int {
 }
 
 func (trans Transactions) Less(i, j int) bool {
-	if trans[i].FirstGasPrice != trans[j].FirstGasPrice {
-		if trans[i].Nonce != trans[j].Nonce {
-			return trans[i].Nonce < trans[j].Nonce
+	if trans[i].From != trans[j].From {
+		if trans[i].FirstGasPrice != trans[j].FirstGasPrice {
+			return trans[i].FirstGasPrice > trans[j].FirstGasPrice
 		}
-		return trans[i].From < trans[j].From
+		return trans[i].From > trans[j].From
 	}
-	return trans[i].FirstGasPrice > trans[j].FirstGasPrice
+	return trans[i].Nonce < trans[j].Nonce
+
 }
 
 func (trans Transactions) Swap(i, j int) {

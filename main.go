@@ -1,9 +1,14 @@
 package main
 
-import "GaswapData/crawlers"
+import (
+	"GaswapData/crawlers"
+	"GaswapData/runner"
+)
 
 func main() {
-	crawlers.GetTxPoolContent()
+	runner.Predict(crawlers.GetLatestBlockNumber())
+
+	//crawlers.GetTxPoolContent()
 	//println(crawlers.GetLatestBlockNumber())
 	//crawlers.WatchTxPool()
 

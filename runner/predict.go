@@ -1,9 +1,11 @@
 package runner
 
 import (
+	"GaswapData/crawlers"
 	"GaswapData/internal"
 	"github.com/go-co-op/gocron"
 	"log"
+	"sort"
 	"time"
 )
 
@@ -19,7 +21,10 @@ func Start() {
 }
 
 func Predict(blockNumber uint64) {
-
+	transacions := convertTxPoolContentToTransactions(crawlers.GetTxPoolContent())
+	for _, tx := range transacions {
+		println(tx.FirstGasPrice)
+	}
 }
 
 // Only obtain pending
@@ -41,5 +46,6 @@ func convertTxPoolContentToTransactions(response *internal.TxpoolContentResponse
 			result = append(result, tx)
 		}
 	}
+	sort.Sort(result)
 	return result
 }
