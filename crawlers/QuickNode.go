@@ -25,8 +25,8 @@ func GetNextBlockBaseGasFee() *big.Int {
 		panic(err)
 	}
 	baseGasFee := latestBlock.Header().BaseFee
-	var gasBar uint64 = 300000000000
-	var incrRate *big.Int = big.NewInt(125)
+	var gasBar uint64 = 30000000
+	var incrRate = big.NewInt(125)
 	if latestBlock.GasUsed() > gasBar {
 		z := baseGasFee.Mul(baseGasFee, incrRate)
 		result := z.Div(z, big.NewInt(10))
