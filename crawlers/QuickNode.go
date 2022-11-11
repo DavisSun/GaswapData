@@ -4,9 +4,10 @@ import (
 	common "GaswapData/common"
 	"GaswapData/internal"
 	"context"
+	"fmt"
 	ethereumCommon "github.com/ethereum/go-ethereum/common"
 	"log"
-	"math/big"
+	"strconv"
 )
 
 func GetLatestBlockNumber() uint64 {
@@ -18,21 +19,20 @@ func GetLatestBlockNumber() uint64 {
 	return blockNumber
 }
 
-func GetNextBlockBaseGasFee() *big.Int {
+func GetNextBlockBaseGasFee() float64 {
 	client := common.Ethclient()
 	latestBlock, err := client.BlockByNumber(context.TODO(), nil)
 	if err != nil {
 		panic(err)
 	}
-	baseGasFee := latestBlock.Header().BaseFee
-	var gasBar uint64 = 30000000
-	var incrRate = big.NewInt(125)
-	if latestBlock.GasUsed() > gasBar {
-		z := baseGasFee.Mul(baseGasFee, incrRate)
-		result := z.Div(z, big.NewInt(10))
-		return result
-	}
-	return baseGasFee
+	baseGasFee := latestBlock.BaseFee()
+	gasUsed := latestBlock.GasUsed()
+	gasLimit := uint64(30000000)
+	gasTarget, _ := strconv.ParseFloat(fmt.Sprintf("%.9f", float64(gasUsed)/float64(gasLimit)), 64)
+	gasTarget = (gasTarget - 0.5) * 2
+	var nextBaseGas = float64(baseGasFee.Uint64()) * (0.125*gasTarget + 1)
+	return nextBaseGas
+
 }
 
 func WatchTxPool() {
