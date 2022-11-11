@@ -6,6 +6,7 @@ import (
 	"context"
 	ethereumCommon "github.com/ethereum/go-ethereum/common"
 	"log"
+	"math/big"
 )
 
 func GetLatestBlockNumber() uint64 {
@@ -17,17 +18,21 @@ func GetLatestBlockNumber() uint64 {
 	return blockNumber
 }
 
-func GetNextBlockBaseGasFee() uint64 {
+func GetNextBlockBaseGasFee() *big.Int {
 	client := common.Ethclient()
 	latestBlock, err := client.BlockByNumber(context.TODO(), nil)
 	if err != nil {
 		panic(err)
 	}
 	baseGasFee := latestBlock.Header().BaseFee
-	//gasLimit := latestBlock.Header().GasLimit
-	//gasUsed := latestBlock.Header().GasUsed
-
-	return baseGasFee.Uint64()
+	var gasBar uint64 = 300000000000
+	var incrRate *big.Int = big.NewInt(125)
+	if latestBlock.GasUsed() > gasBar {
+		z := baseGasFee.Mul(baseGasFee, incrRate)
+		result := z.Div(z, big.NewInt(10))
+		return result
+	}
+	return baseGasFee
 }
 
 func WatchTxPool() {
